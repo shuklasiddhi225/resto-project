@@ -9,11 +9,15 @@
             <input type="text" v-model="email" placeholder="Enter Email" class="input-field" />
             <input type="password" v-model="password" placeholder="Enter Password" class="input-field" />
             <button v-on:click="signUp">Sign Up</button>
+            <p>
+                <router-link to="/LoginPage">LoginPage</router-link>
+            </p>
         </div>
     </div>
 </template>
 
 <script>
+// import router from '@/routers';
 import axios from 'axios'
 export default {
     name: 'SignUp',
@@ -35,10 +39,18 @@ export default {
             console.warn(result);
             if(result.status==201)
             {
-                alert("Sign Up Successful");
                 localStorage.setItem("user-info",JSON.stringify(result.data));
+                this.$router.push({name:'HomePage'})
             }
     }
+},
+mounted()
+{
+let user=localStorage.getItem('user-info');
+if(user){
+    this.$router.push({name:'HomePage'})
+
+}
 }
 }
 </script>
